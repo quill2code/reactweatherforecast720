@@ -5,7 +5,7 @@ document.querySelector("#search-form").addEventListener("submit", function (even
 });
 
 function getWeather(city) {
-  const apiKey = "YOUR_API_KEY_HERE"; // Replace with your SheCodes API key
+  const apiKey = "f5029b784306910c19746e40c14d6cd3"; 
   const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
   fetch(apiUrl)
