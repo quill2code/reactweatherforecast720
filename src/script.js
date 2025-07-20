@@ -1,34 +1,24 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f0f8ff;
-    color: #333;
-    text-align: center;
-    padding: 2rem;
-  }
-  
-  .container {
-    max-width: 500px;
-    margin: auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  input[type="text"] {
-    padding: 0.5rem;
-    width: 70%;
-    margin-right: 1rem;
-  }
-  
-  button {
-    padding: 0.5rem 1rem;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  #weather-info {
-    margin-top: 2rem;
-  }
+document.querySelector("#search-form").addEventListener("submit", function (event) {
+  event.preventDefault();
+  const city = document.querySelector("#city-input").value;
+  getWeather(city);
+});
+
+function getWeather(city) {
+  const apiKey = "YOUR_API_KEY_HERE"; // Replace with your SheCodes API key
+  const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      document.querySelector("#city-name").textContent = data.city;
+      document.querySelector("#temperature").textContent = `Temperature: ${Math.round(data.temperature.current)}°C`;
+      document.querySelector("#description").textContent = `Conditions: ${data.condition.description}`;
+    })
+    .catch(error => {
+      document.querySelector("#city-name").textContent = "City not found.";
+      document.querySelector("#temperature").textContent = "";
+      document.querySelector("#description").textContent = "";
+      console.error(error);
+    });
+}
